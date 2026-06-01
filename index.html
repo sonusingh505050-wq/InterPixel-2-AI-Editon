@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>InterPixel OS 2</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="desktop" aria-label="InterPixel OS 2 desktop">
+      <header class="topbar">
+        <div class="brand">
+          <span class="mark">IP</span>
+          <div>
+            <strong>InterPixel OS 2</strong>
+            <small>teaching desktop</small>
+          </div>
+        </div>
+        <div class="status">
+          <span id="drive-status">Drive: loading</span>
+          <span id="clock">--:--</span>
+        </div>
+      </header>
+
+      <section class="dock" aria-label="Applications">
+        <button data-open="terminal">Terminal</button>
+        <button data-open="tasks">Task Manager</button>
+        <button data-open="drive">Drive Manager</button>
+        <button data-open="whiteboard">Whiteboard</button>
+        <button data-open="ai">AI Core</button>
+        <button data-open="files">Files</button>
+        <button data-open="lesson">Lessons</button>
+      </section>
+
+      <section id="desktop-icons" class="desktop-icons" aria-label="Desktop icons"></section>
+
+      <section class="window terminal-window" data-window="terminal">
+        <div class="titlebar"><strong>Terminal</strong><button data-close="terminal">x</button></div>
+        <div id="terminal-output" class="terminal-output"></div>
+        <form id="terminal-form" class="terminal-form">
+          <span>ipx:/&gt;</span>
+          <input id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command" />
+        </form>
+      </section>
+
+      <section class="window" data-window="tasks">
+        <div class="titlebar"><strong>Task Manager</strong><button data-close="tasks">x</button></div>
+        <div class="toolbar">
+          <button id="spawn-task">Spawn Demo Task</button>
+          <button id="sort-cpu">Sort CPU</button>
+        </div>
+        <table>
+          <thead><tr><th>PID</th><th>Name</th><th>CPU</th><th>Memory</th><th></th></tr></thead>
+          <tbody id="task-list"></tbody>
+        </table>
+      </section>
+
+      <section class="window" data-window="drive">
+        <div class="titlebar"><strong>Drive Manager</strong><button data-close="drive">x</button></div>
+        <div class="drive-grid">
+          <div>
+            <label>File name<input id="file-name" value="/notes/welcome.txt" /></label>
+            <label>Contents<textarea id="file-body">Welcome to InterPixel OS 2.</textarea></label>
+            <button id="save-file">Save File</button>
+            <button id="export-pack">Export .ipxpack</button>
+            <label class="importer">Import .ipxpack<input id="import-pack" type="file" accept=".ipxpack,application/json" /></label>
+          </div>
+          <pre id="drive-info"></pre>
+        </div>
+      </section>
+
+      <section class="window" data-window="whiteboard">
+        <div class="titlebar"><strong>Whiteboard</strong><button data-close="whiteboard">x</button></div>
+        <div class="toolbar">
+          <input id="pen-color" type="color" value="#e23b3b" aria-label="Pen color" />
+          <input id="pen-size" type="range" min="2" max="28" value="6" aria-label="Pen size" />
+          <button id="clear-board">Clear</button>
+        </div>
+        <canvas id="board" width="900" height="420"></canvas>
+      </section>
+
+      <section class="window" data-window="ai">
+        <div class="titlebar"><strong>AI Core</strong><button data-close="ai">x</button></div>
+        <div class="ai-console">
+          <div id="ai-log" class="ai-log"></div>
+          <form id="ai-form" class="ai-form">
+            <input id="ai-input" value="explain drivers" autocomplete="off" aria-label="Ask InterPixel AI" />
+            <button>Ask</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="window" data-window="files">
+        <div class="titlebar"><strong>Files</strong><button data-close="files">x</button></div>
+        <div class="file-manager">
+          <aside class="file-sidebar">
+            <button data-folder="/Desktop">Desktop</button>
+            <button data-folder="/Documents">Documents</button>
+            <button data-folder="/Packages">Packages</button>
+            <button data-folder="/System">System</button>
+            <button data-folder="/">Root</button>
+            <div class="storage-mode">
+              <strong>Storage target</strong>
+              <span>IPXFS raw SSD when booted as OS</span>
+            </div>
+          </aside>
+          <section class="file-main">
+            <div class="file-pathbar">
+              <span id="current-folder">/Desktop</span>
+              <button id="new-text-file">New TXT</button>
+              <button id="new-folder">New Folder</button>
+            </div>
+            <div id="folder-grid" class="folder-grid"></div>
+          </section>
+          <section class="file-editor">
+            <label>Name<input id="editor-path" value="/Desktop/hello.txt" /></label>
+            <label>Text<textarea id="editor-body">This file belongs to InterPixel OS 2.</textarea></label>
+            <button id="editor-save">Save To InterPixel Disk</button>
+            <button id="editor-delete">Delete</button>
+            <label>Install package<input id="pkg-file" type="file" accept=".ipxpkg,.ipxpack,application/json" /></label>
+            <pre id="file-action-log">Ready.</pre>
+          </section>
+        </div>
+      </section>
+
+      <section class="window" data-window="lesson">
+        <div class="titlebar"><strong>Lessons</strong><button data-close="lesson">x</button></div>
+        <div class="lesson">
+          <h1>Raw Computer Path</h1>
+          <p>Bootloader -> kernel entry -> memory map -> interrupts -> drivers -> scheduler -> filesystem -> user runtime.</p>
+          <h2>Why V8 is advanced</h2>
+          <p>V8 expects memory allocation, threads, timers, files, and platform services. A small OS normally starts with a tiny interpreter before embedding V8.</p>
+          <h2>InterPixel Pack</h2>
+          <p>The virtual drive exports as `.ipxpack`, a JSON-based teaching format with magic, version, metadata, and file records.</p>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
